@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Test Image</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #canvas { border: 1px solid #ccc; }
+        .button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Create Test Product Screenshot</h2>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <br>
+    <button class="button" onclick="drawMockApp()">Draw Mock App</button>
+    <button class="button" onclick="downloadImage()">Download Image</button>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        function drawMockApp() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Background
+            ctx.fillStyle = '#f8fafc';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Header
+            ctx.fillStyle = '#3b82f6';
+            ctx.fillRect(0, 0, canvas.width, 80);
+            
+            // Header text
+            ctx.fillStyle = 'white';
+            ctx.font = '24px Arial';
+            ctx.fillText('TaskMaster Pro', 30, 50);
+            
+            // Navigation
+            ctx.fillStyle = '#1e40af';
+            ctx.fillRect(0, 80, canvas.width, 50);
+            
+            // Nav items
+            ctx.fillStyle = 'white';
+            ctx.font = '16px Arial';
+            ctx.fillText('Dashboard', 30, 110);
+            ctx.fillText('Projects', 150, 110);
+            ctx.fillText('Team', 250, 110);
+            ctx.fillText('Analytics', 350, 110);
+            
+            // Main content area
+            ctx.fillStyle = 'white';
+            ctx.fillRect(30, 160, canvas.width - 60, 400);
+            
+            // Content title
+            ctx.fillStyle = '#1f2937';
+            ctx.font = '20px Arial';
+            ctx.fillText('Project Overview', 50, 200);
+            
+            // Task cards
+            const cardColors = ['#fef3c7', '#dcfce7', '#fce7f3'];
+            const cardTitles = ['Design Review', 'Development', 'Testing'];
+            
+            for (let i = 0; i < 3; i++) {
+                ctx.fillStyle = cardColors[i];
+                ctx.fillRect(50 + i * 220, 230, 200, 100);
+                
+                ctx.fillStyle = '#1f2937';
+                ctx.font = '16px Arial';
+                ctx.fillText(cardTitles[i], 60 + i * 220, 260);
+                
+                ctx.font = '12px Arial';
+                ctx.fillText('Due: Next week', 60 + i * 220, 280);
+                ctx.fillText('Assigned: Team ' + (i + 1), 60 + i * 220, 300);
+            }
+            
+            // Sidebar
+            ctx.fillStyle = '#f1f5f9';
+            ctx.fillRect(canvas.width - 200, 160, 170, 400);
+            
+            ctx.fillStyle = '#1f2937';
+            ctx.font = '16px Arial';
+            ctx.fillText('Recent Activity', canvas.width - 190, 190);
+            
+            // Activity items
+            ctx.font = '12px Arial';
+            const activities = [
+                'John updated task',
+                'Sarah commented',
+                'Mike completed review',
+                'New task assigned'
+            ];
+            
+            activities.forEach((activity, index) => {
+                ctx.fillText(activity, canvas.width - 190, 220 + index * 30);
+            });
+        }
+        
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.download = 'test-product-screenshot.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Draw initial mock app
+        drawMockApp();
+    </script>
+</body>
+</html>
